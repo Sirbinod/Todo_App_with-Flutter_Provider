@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/mode/taskData.dart';
 
 class AddTask extends StatelessWidget {
   // const AddTask({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle;
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -25,12 +28,21 @@ class AddTask extends StatelessWidget {
                   fontSize: 30,
                   fontWeight: FontWeight.w500),
             ),
-            TextField(autofocus: true, textAlign: TextAlign.center),
+            TextField(
+              autofocus: true,
+              textAlign: TextAlign.center,
+              onChanged: (newTaxt) {
+                newTaskTitle = newTaxt;
+              },
+            ),
             SizedBox(
               height: 10.0,
             ),
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<TaskData>(context).addTask(newTaskTitle);
+                Navigator.pop(context);
+              },
               child: Text(
                 "Add",
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
